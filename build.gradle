@@ -3,9 +3,8 @@ plugins {
 	id 'maven-publish'
 }
 
-version = "mc${archive_minecraft_version}-Fabric-${mod_version}"
+version = project.mod_version
 group = project.maven_group
-def realVersion = project.mod_version + '+fabric'
 
 base {
 	archivesName = project.archives_base_name
@@ -26,10 +25,10 @@ dependencies {
 }
 
 processResources {
-	inputs.property "version", realVersion
+	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": realVersion
+		expand "version": project.version
 	}
 }
 
@@ -54,6 +53,14 @@ jar {
 tasks.withType(AbstractArchiveTask).configureEach {
 	preserveFileTimestamps = false
 	reproducibleFileOrder = true
+}
+
+tasks.named("remapJar") {
+	archiveFileName = "${project.archives_base_name}${project.mod_version}.jar"
+}
+
+tasks.named("remapSourcesJar") {
+	archiveFileName = "${project.archives_base_name}${project.mod_version}-sources.jar"
 }
 
 publishing {

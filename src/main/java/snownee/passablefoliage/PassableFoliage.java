@@ -154,7 +154,7 @@ public final class PassableFoliage {
 			} catch (RuntimeException e) {
 				if (!err) {
 					PassableFoliage.LOGGER.warn(
-							"Passable Foliage: Failed to set passable state for block {}",
+							"Passable Foliage Forked: Failed to set passable state for block {}",
 							BuiltInRegistries.BLOCK.getKey(block),
 							e);
 					err = true;

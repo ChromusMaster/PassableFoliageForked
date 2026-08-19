@@ -1,13 +1,15 @@
 # Passable Foliage Forked
 
-Mod version: **26.2.0**  
+Mod version: **2.0**  
 Minecraft Java: **26.2**
 
 ## About
 
-Passable Foliage allows players and entities to move through leaves and any other blocks included in the `passablefoliage:passables` tag. Movement through foliage still has configurable effects such as reduced speed, sounds and fall-damage reduction. The mod also adjusts pathfinding and provides the Leaf Walker enchantment.
+Passable Foliage Forked allows players and entities to move through leaves and any other blocks included in the `passablefoliage:passables` tag. Movement through foliage still has configurable effects such as reduced speed, sounds and fall-damage reduction. The mod also adjusts pathfinding and provides the Leaf Walker enchantment.
 
 This project is a fork of [Passable Foliage](https://github.com/Snownee/PassableFoliage), originally created by Snownee and released under the MIT License.
+
+This fork is independently maintained and is not affiliated with or endorsed by the original author. The technical mod ID and resource namespace remain `passablefoliage` to preserve compatibility with existing worlds and to prevent the original mod and this fork from being loaded together.
 
 ## Requirements
 
@@ -36,7 +38,7 @@ NeoForge is not included in this source tree. The original project supplied for 
 - Includes the `headHitter` option, which preserves collision when approaching foliage from below.
 - Hides an entity's name tag only while the entity is fully inside foliage.
 
-## Changes in 26.2.0
+## Changes in 2.0
 
 - Updated from Minecraft 26.1.2 to Minecraft Java 26.2.
 - Updated to Fabric Loader 0.19.3, Fabric API 0.158.0, Loom 1.17.19, Gradle 9.7.0 and Java 25.
@@ -92,7 +94,7 @@ java -version
 The main JAR is written to:
 
 ```text
-build\libs\PassableFoliage-mc26.2-Fabric-26.2.0.jar
+build\libs\PassableFoliageForked2.0.jar
 ```
 
 Development tasks:

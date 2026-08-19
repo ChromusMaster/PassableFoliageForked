@@ -57,6 +57,6 @@ public class PFRecipeProvider extends FabricRecipeProvider {
 
 	@Override
 	public String getName() {
-		return "Passable Foliage Recipes";
+		return "Passable Foliage Forked Recipes";
 	}
 }

@@ -1,6 +1,6 @@
 # Changelog
 
-## 26.2.0
+## 2.0
 
 - Ported the mod to Minecraft Java 26.2 and Java 25.
 - Updated Fabric Loader, Fabric API, Loom and Gradle.
@@ -15,3 +15,4 @@
 - Removed unnecessary binaries and development files from the source package.
 - Pinned dependency versions and added checksum verification for the Gradle distribution.
 - Preserved Fabric and Quilt support on both client and server.
+- Established independent fork branding and versioning as Passable Foliage Forked 2.0.

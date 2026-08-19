@@ -2,8 +2,8 @@
 	"schemaVersion": 1,
 	"id": "passablefoliage",
 	"version": "${version}",
-	"name": "Passable Foliage",
-	"description": "Makes leaves and configured foliage passable while preserving configurable movement, fall-damage, sound and pathfinding behavior.",
+	"name": "Passable Foliage Forked",
+	"description": "An independently maintained fork that makes leaves and configured foliage passable while preserving configurable movement, fall-damage, sound and pathfinding behavior.",
 	"authors": [
 		"Snownee"
 	],

@@ -3,7 +3,7 @@
 	"enchantment.passablefoliage.leaf_walker.desc": "Allows the player to walk on foliage blocks.",
 	"fml.menu.mods.info.description.passablefoliage": "Move through leaves and configured foliage blocks.",
 	"modmenu.descriptionTranslation.passablefoliage": "Move through leaves and configured foliage blocks.",
-	"modmenu.nameTranslation.passablefoliage": "Passable Foliage",
+	"modmenu.nameTranslation.passablefoliage": "Passable Foliage Forked",
 	"passablefoliage.config.alwaysLeafWalking": "Always Leaf Walking",
 	"passablefoliage.config.alwaysLeafWalking.desc": "Always consider the player to have the Leaf Walker enchantment. When enabled, the recipe is hidden and foliage slowdown is ignored.",
 	"passablefoliage.config.alwaysNotViewBlocking": "Always Not View Blocking",

@@ -22,7 +22,7 @@ body:
     id: mod-version
     attributes:
       label: Mod version
-      placeholder: eg. 26.2.0
+      placeholder: eg. 2.0
     validations:
       required: true
   - type: input
