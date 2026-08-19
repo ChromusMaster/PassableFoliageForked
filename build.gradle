@@ -7,7 +7,7 @@ version = project.mod_version
 group = project.maven_group
 
 base {
-	archivesName = project.archives_base_name
+	archivesName = "${project.archives_base_name}${project.mod_version}"
 }
 
 repositories {
@@ -51,16 +51,9 @@ jar {
 }
 
 tasks.withType(AbstractArchiveTask).configureEach {
+	archiveVersion = ""
 	preserveFileTimestamps = false
 	reproducibleFileOrder = true
-}
-
-tasks.named("remapJar") {
-	archiveFileName = "${project.archives_base_name}${project.mod_version}.jar"
-}
-
-tasks.named("remapSourcesJar") {
-	archiveFileName = "${project.archives_base_name}${project.mod_version}-sources.jar"
 }
 
 publishing {
