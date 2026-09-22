@@ -1,7 +1,7 @@
 # Passable Foliage Forked
 
-Mod version: **2.0**  
-Minecraft Java: **26.2**
+Mod version: **2.1**  
+Minecraft Java: **26.3**
 
 ## About
 
@@ -15,10 +15,10 @@ This fork is independently maintained and is not affiliated with or endorsed by 
 
 | Component | Version |
 | --- | --- |
-| Minecraft Java | 26.2 |
+| Minecraft Java | 26.3 |
 | Java | 25 or newer |
-| Fabric Loader | 0.19.3 or newer |
-| Fabric API | 0.158.0 or newer for Minecraft 26.2 |
+| Fabric Loader | 0.19.5 or newer |
+| Fabric API | 0.161.0 or newer for Minecraft 26.3 |
 | Quilt Loader | Supported through Fabric mod compatibility |
 | Environment | Client and server |
 
@@ -37,6 +37,15 @@ NeoForge is not included in this source tree. The original project supplied for 
 - Includes the Leaf Walker enchantment for walking on top of foliage.
 - Includes the `headHitter` option, which preserves collision when approaching foliage from below.
 - Hides an entity's name tag only while the entity is fully inside foliage.
+
+## Changes in 2.1
+
+- Updated the project target from Minecraft Java 26.2 to 26.3.
+- Updated Fabric Loader to 0.19.5 and Fabric API to 0.161.0+26.3.
+- Kept Java 25, Loom 1.17.19 and the existing Gradle 9.7.0 wrapper.
+- Updated the resource-pack metadata to Minecraft 26.3 format 97.1 using `min_format` and `max_format`.
+- Removed stale datagen cache metadata from Minecraft 26.1.2 while preserving the generated data files.
+- Reviewed the mod's current mixin/API touch points for the 26.3 port without compiling the project; no speculative Java rewrites were applied.
 
 ## Changes in 2.0
 
@@ -94,7 +103,7 @@ java -version
 The main JAR is written to:
 
 ```text
-build\libs\PassableFoliageForked2.0.jar
+build\libs\PassableFoliageForked2.1.jar
 ```
 
 Development tasks:
