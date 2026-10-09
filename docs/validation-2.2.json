@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-09",
+  "mod_version": "2.2",
+  "python_tests": {
+    "count": 9,
+    "exit_code": 0
+  },
+  "targets": [
+    {
+      "loader": "Fabric",
+      "minecraft": "26.2",
+      "mode": "direct javac against vanilla Minecraft and loader APIs; not patched runtime or packaged mod",
+      "flags": [
+        "--release 25",
+        "-Xlint:all",
+        "-Werror"
+      ],
+      "sources": 31,
+      "exit_code": 0,
+      "seconds": 1.561,
+      "class_count": 37,
+      "status": "passed",
+      "mixin_signatures_checked": 16,
+      "mixin_signature_result": "passed",
+      "suppression_regression": "passed"
+    },
+    {
+      "loader": "Fabric",
+      "minecraft": "26.3",
+      "mode": "direct javac against vanilla Minecraft and loader APIs; not patched runtime or packaged mod",
+      "flags": [
+        "--release 25",
+        "-Xlint:all",
+        "-Werror"
+      ],
+      "sources": 31,
+      "exit_code": 0,
+      "seconds": 1.552,
+      "class_count": 37,
+      "status": "passed",
+      "mixin_signatures_checked": 16,
+      "mixin_signature_result": "passed",
+      "suppression_regression": "passed"
+    },
+    {
+      "loader": "NeoForge",
+      "minecraft": "26.2",
+      "mode": "direct javac against vanilla Minecraft and loader APIs; not patched runtime or packaged mod",
+      "flags": [
+        "--release 25",
+        "-Xlint:all",
+        "-Werror"
+      ],
+      "sources": 25,
+      "exit_code": 0,
+      "seconds": 1.624,
+      "class_count": 30,
+      "status": "passed",
+      "mixin_signatures_checked": 16,
+      "mixin_signature_result": "passed",
+      "suppression_regression": "passed"
+    },
+    {
+      "loader": "NeoForge",
+      "minecraft": "26.3",
+      "mode": "direct javac against vanilla Minecraft and loader APIs; not patched runtime or packaged mod",
+      "flags": [
+        "--release 25",
+        "-Xlint:all",
+        "-Werror"
+      ],
+      "sources": 25,
+      "exit_code": 0,
+      "seconds": 1.637,
+      "class_count": 30,
+      "status": "passed",
+      "mixin_signatures_checked": 16,
+      "mixin_signature_result": "passed",
+      "suppression_regression": "passed"
+    }
+  ],
+  "full_gradle_build_validated": false,
+  "game_runtime_tested": false
+}

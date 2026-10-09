@@ -1,0 +1,50 @@
+// Match exact obsolete locations only. Overlaying a ZIP must not compile old
+// Fabric classes alongside the new platform-specific source tree.
+def loaderSource = providers.gradleProperty('modloader').get().toLowerCase()
+def minecraftSource = providers.gradleProperty('minecraft_version').get()
+def obsoleteFiles = [
+    'src/main/java/snownee/passablefoliage/AlwaysLeafWalkingCondition.java',
+    'src/main/java/snownee/passablefoliage/LeafWalkerEnabledCondition.java',
+    'src/main/java/snownee/passablefoliage/util/CommonProxy.java',
+    'src/main/java/snownee/passablefoliage/datagen/PFBlockTagProvider.java',
+    'src/main/java/snownee/passablefoliage/datagen/PFEnchantmentProvider.java',
+    'src/main/java/snownee/passablefoliage/datagen/PFEnchantmentTagProvider.java',
+    'src/main/java/snownee/passablefoliage/datagen/PFRecipeProvider.java',
+    'src/main/java/snownee/passablefoliage/datagen/PassableFoliageDataGen.java',
+    'src/main/java/snownee/passablefoliage/datagen/package-info.java',
+    'src/main/java/snownee/passablefoliage/mixin/fabric/WalkNodeEvaluatorMixin.java',
+    'src/main/java/snownee/passablefoliage/mixin/fabric/package-info.java',
+    'src/main/java/snownee/passablefoliage/mixin/BlockStateCacheMixin.java',
+    'src/main/resources/fabric.mod.json',
+    'src/main/resources/passablefoliage.accesswidener'
+].collect { file(it).canonicalFile }.toSet()
+sourceSets.main {
+    java.setSrcDirs(['src/main/java', "src/version/${minecraftSource}/java",
+        "src/${loaderSource}/java", "src/${loaderSource}/${minecraftSource}/java"])
+    java.exclude { details -> obsoleteFiles.contains(details.file.canonicalFile) }
+    resources.setSrcDirs(['src/main/resources', "src/${loaderSource}/resources"])
+    resources.exclude { details -> obsoleteFiles.contains(details.file.canonicalFile) }
+}
+
+tasks.register('verifySourceLayout') {
+    group = 'verification'
+    description = 'Check selected source files for duplicate Java types before compiling.'
+    inputs.files(sourceSets.main.java)
+    doLast {
+        def packages = [:]
+        sourceSets.main.java.files.sort().each { source ->
+            def matcher = source.getText('UTF-8') =~ /(?m)^\s*package\s+([\w.]+)\s*;/
+            if (!matcher.find()) { throw new GradleException("Missing package declaration: ${source}") }
+            def qualifiedName = matcher.group(1) + '.' + source.name
+            if (packages.containsKey(qualifiedName)) {
+                throw new GradleException("Duplicate Java source ${qualifiedName}: ${packages[qualifiedName]} and ${source}")
+            }
+            packages[qualifiedName] = source
+        }
+        def obsoletePresent = obsoleteFiles.findAll { it.exists() }
+        logger.lifecycle('Source layout: {} Java files selected; {} obsolete locations excluded without deleting files.',
+            packages.size(), obsoletePresent.size())
+    }
+}
+tasks.withType(JavaCompile).configureEach { dependsOn 'verifySourceLayout' }
+tasks.named('processResources') { dependsOn 'verifySourceLayout' }

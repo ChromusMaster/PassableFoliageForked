@@ -31,12 +31,7 @@ java {
     toolchain.languageVersion = JavaLanguageVersion.of(25)
     withSourcesJar()
 }
-sourceSets {
-    main {
-        java.setSrcDirs(['src/main/java', "src/version/${mc}/java", "src/${loader.toLowerCase()}/java", "src/${loader.toLowerCase()}/${mc}/java"])
-        resources.setSrcDirs(['src/main/resources', "src/${loader.toLowerCase()}/resources"])
-    }
-}
+apply from: 'gradle/source-layout.gradle'
 if (loader == 'Fabric') {
     dependencies {
         minecraft "com.mojang:minecraft:${mc}"

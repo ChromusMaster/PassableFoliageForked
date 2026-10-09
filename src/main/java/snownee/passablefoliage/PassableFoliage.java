@@ -70,7 +70,7 @@ public final class PassableFoliage {
 			if (blockState.is(BlockTags.LEAVES)) {
 				// play a sound when an entity falls into leaves; do this before altering motion
 				if (livingEntity.fallDistance > 3f) {
-					SoundType soundType = blockState.getSoundType();
+					SoundType soundType = snownee.passablefoliage.util.PlatformSound.getSoundType(blockState, world, pos, entity);
 					entity.playSound(
 							soundType.getBreakSound(),
 							soundType.getVolume() * 0.6f * PassableFoliageCommonConfig.soundVolume,
@@ -80,7 +80,7 @@ public final class PassableFoliage {
 				else if (entity.tickCount % 6 == 0) {
 					double motion = entity.getKnownSpeed().lengthSqr();
 					if (motion > 5e-7) {
-						SoundType soundType = blockState.getSoundType();
+						SoundType soundType = snownee.passablefoliage.util.PlatformSound.getSoundType(blockState, world, pos, entity);
 						entity.playSound(
 								soundType.getHitSound(),
 								soundType.getVolume() * 0.5f * PassableFoliageCommonConfig.soundVolume,

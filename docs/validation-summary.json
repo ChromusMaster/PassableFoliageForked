@@ -1,84 +1,148 @@
 {
   "date": "2026-10-09",
-  "mod_version": "2.2",
+  "mod_version": "2.2.1",
   "python_tests": {
     "count": 9,
     "exit_code": 0
   },
-  "targets": [
+  "layout_checks": [
     {
       "loader": "Fabric",
       "minecraft": "26.2",
-      "mode": "direct javac against vanilla Minecraft and loader APIs; not patched runtime or packaged mod",
-      "flags": [
-        "--release 25",
-        "-Xlint:all",
-        "-Werror"
-      ],
-      "sources": 31,
-      "exit_code": 0,
-      "seconds": 1.561,
-      "class_count": 37,
+      "java_count": 30,
       "status": "passed",
-      "mixin_signatures_checked": 16,
-      "mixin_signature_result": "passed",
-      "suppression_regression": "passed"
+      "clean_equals_overlay": true
     },
     {
       "loader": "Fabric",
       "minecraft": "26.3",
-      "mode": "direct javac against vanilla Minecraft and loader APIs; not patched runtime or packaged mod",
-      "flags": [
-        "--release 25",
-        "-Xlint:all",
-        "-Werror"
-      ],
-      "sources": 31,
-      "exit_code": 0,
-      "seconds": 1.552,
-      "class_count": 37,
+      "java_count": 30,
       "status": "passed",
-      "mixin_signatures_checked": 16,
-      "mixin_signature_result": "passed",
-      "suppression_regression": "passed"
+      "clean_equals_overlay": true
     },
     {
       "loader": "NeoForge",
       "minecraft": "26.2",
-      "mode": "direct javac against vanilla Minecraft and loader APIs; not patched runtime or packaged mod",
-      "flags": [
-        "--release 25",
-        "-Xlint:all",
-        "-Werror"
-      ],
-      "sources": 25,
-      "exit_code": 0,
-      "seconds": 1.624,
-      "class_count": 30,
+      "java_count": 24,
       "status": "passed",
-      "mixin_signatures_checked": 16,
-      "mixin_signature_result": "passed",
-      "suppression_regression": "passed"
+      "clean_equals_overlay": true
     },
     {
       "loader": "NeoForge",
       "minecraft": "26.3",
-      "mode": "direct javac against vanilla Minecraft and loader APIs; not patched runtime or packaged mod",
-      "flags": [
-        "--release 25",
-        "-Xlint:all",
-        "-Werror"
-      ],
-      "sources": 25,
-      "exit_code": 0,
-      "seconds": 1.637,
-      "class_count": 30,
+      "java_count": 24,
       "status": "passed",
-      "mixin_signatures_checked": 16,
-      "mixin_signature_result": "passed",
-      "suppression_regression": "passed"
+      "clean_equals_overlay": true
     }
   ],
+  "changed_java_checks": [
+    {
+      "loader": "Fabric",
+      "minecraft": "26.2",
+      "mod_version": "2.2.1",
+      "scope": "Compile two changed Java files against vanilla Minecraft, loader API and previous common classes; not a patched runtime build",
+      "command": [
+        "/tmp/pf-jdk25/bin/javac",
+        "--release",
+        "25",
+        "-Xlint:all",
+        "-Werror",
+        "-proc:none",
+        "-implicit:none",
+        "-cp",
+        "/workspace/scratch/6cb95d8f3884/validation-tools/minecraft-26.2.jar:/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/build/Fabric/26.2/2.2/validation-classes:/workspace/scratch/6cb95d8f3884/validation-tools/annotations.jar:/workspace/scratch/6cb95d8f3884/validation-tools/jspecify.jar:/workspace/scratch/6cb95d8f3884/validation-tools/slf4j.jar:/workspace/scratch/6cb95d8f3884/validation-tools/logging.jar:/workspace/scratch/6cb95d8f3884/validation-tools/brigadier.jar:/workspace/scratch/6cb95d8f3884/validation-tools/datafixerupper.jar:/workspace/scratch/6cb95d8f3884/validation-tools/guava.jar:/workspace/scratch/6cb95d8f3884/validation-tools/fastutil.jar",
+        "-d",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/build/Fabric/26.2/2.2.1/validation-classes",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/src/main/java/snownee/passablefoliage/PassableFoliage.java",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/src/fabric/java/snownee/passablefoliage/util/PlatformSound.java"
+      ],
+      "exit_code": 0,
+      "seconds": 1.881,
+      "status": "passed"
+    },
+    {
+      "loader": "Fabric",
+      "minecraft": "26.3",
+      "mod_version": "2.2.1",
+      "scope": "Compile two changed Java files against vanilla Minecraft, loader API and previous common classes; not a patched runtime build",
+      "command": [
+        "/tmp/pf-jdk25/bin/javac",
+        "--release",
+        "25",
+        "-Xlint:all",
+        "-Werror",
+        "-proc:none",
+        "-implicit:none",
+        "-cp",
+        "/workspace/scratch/6cb95d8f3884/validation-tools/minecraft-26.3.jar:/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/build/Fabric/26.3/2.2/validation-classes:/workspace/scratch/6cb95d8f3884/validation-tools/annotations.jar:/workspace/scratch/6cb95d8f3884/validation-tools/jspecify.jar:/workspace/scratch/6cb95d8f3884/validation-tools/slf4j.jar:/workspace/scratch/6cb95d8f3884/validation-tools/logging.jar:/workspace/scratch/6cb95d8f3884/validation-tools/brigadier.jar:/workspace/scratch/6cb95d8f3884/validation-tools/datafixerupper.jar:/workspace/scratch/6cb95d8f3884/validation-tools/guava.jar:/workspace/scratch/6cb95d8f3884/validation-tools/fastutil.jar",
+        "-d",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/build/Fabric/26.3/2.2.1/validation-classes",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/src/main/java/snownee/passablefoliage/PassableFoliage.java",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/src/fabric/java/snownee/passablefoliage/util/PlatformSound.java"
+      ],
+      "exit_code": 0,
+      "seconds": 1.511,
+      "status": "passed"
+    },
+    {
+      "loader": "NeoForge",
+      "minecraft": "26.2",
+      "mod_version": "2.2.1",
+      "scope": "Compile two changed Java files against vanilla Minecraft, loader API and previous common classes; not a patched runtime build",
+      "command": [
+        "/tmp/pf-jdk25/bin/javac",
+        "--release",
+        "25",
+        "-Xlint:all",
+        "-Werror",
+        "-proc:none",
+        "-implicit:none",
+        "-cp",
+        "/workspace/scratch/6cb95d8f3884/validation-tools/minecraft-26.2.jar:/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/build/NeoForge/26.2/2.2/validation-classes:/workspace/scratch/6cb95d8f3884/validation-tools/annotations.jar:/workspace/scratch/6cb95d8f3884/validation-tools/jspecify.jar:/workspace/scratch/6cb95d8f3884/validation-tools/slf4j.jar:/workspace/scratch/6cb95d8f3884/validation-tools/logging.jar:/workspace/scratch/6cb95d8f3884/validation-tools/brigadier.jar:/workspace/scratch/6cb95d8f3884/validation-tools/datafixerupper.jar:/workspace/scratch/6cb95d8f3884/validation-tools/guava.jar:/workspace/scratch/6cb95d8f3884/validation-tools/fastutil.jar:/workspace/scratch/6cb95d8f3884/validation-tools/neoforge-26.2.jar",
+        "-d",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/build/NeoForge/26.2/2.2.1/validation-classes",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/src/main/java/snownee/passablefoliage/PassableFoliage.java",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/src/neoforge/java/snownee/passablefoliage/util/PlatformSound.java"
+      ],
+      "exit_code": 0,
+      "seconds": 1.914,
+      "status": "passed"
+    },
+    {
+      "loader": "NeoForge",
+      "minecraft": "26.3",
+      "mod_version": "2.2.1",
+      "scope": "Compile two changed Java files against vanilla Minecraft, loader API and previous common classes; not a patched runtime build",
+      "command": [
+        "/tmp/pf-jdk25/bin/javac",
+        "--release",
+        "25",
+        "-Xlint:all",
+        "-Werror",
+        "-proc:none",
+        "-implicit:none",
+        "-cp",
+        "/workspace/scratch/6cb95d8f3884/validation-tools/minecraft-26.3.jar:/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/build/NeoForge/26.3/2.2/validation-classes:/workspace/scratch/6cb95d8f3884/validation-tools/annotations.jar:/workspace/scratch/6cb95d8f3884/validation-tools/jspecify.jar:/workspace/scratch/6cb95d8f3884/validation-tools/slf4j.jar:/workspace/scratch/6cb95d8f3884/validation-tools/logging.jar:/workspace/scratch/6cb95d8f3884/validation-tools/brigadier.jar:/workspace/scratch/6cb95d8f3884/validation-tools/datafixerupper.jar:/workspace/scratch/6cb95d8f3884/validation-tools/guava.jar:/workspace/scratch/6cb95d8f3884/validation-tools/fastutil.jar:/workspace/scratch/6cb95d8f3884/validation-tools/neoforge-26.3.jar",
+        "-d",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/build/NeoForge/26.3/2.2.1/validation-classes",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/src/main/java/snownee/passablefoliage/PassableFoliage.java",
+        "/workspace/scratch/6cb95d8f3884/project/PassableFoliageForked/src/neoforge/java/snownee/passablefoliage/util/PlatformSound.java"
+      ],
+      "exit_code": 0,
+      "seconds": 2.269,
+      "status": "passed"
+    }
+  ],
+  "gradle_java25_native_access": {
+    "task": "verifySourceLayout",
+    "gradle": "9.7.0",
+    "java": "25.0.4.1",
+    "mode": "isolated Java-only harness applying the actual source-layout.gradle; no Minecraft plugin",
+    "exit_code": 0,
+    "warnings": 0
+  },
   "full_gradle_build_validated": false,
-  "game_runtime_tested": false
+  "patched_minecraft_compile_validated": false,
+  "game_runtime_tested": false,
+  "previous_revision_report": "validation-2.2.json"
 }

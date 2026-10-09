@@ -1,10 +1,14 @@
-# Compilação / Building — Passable Foliage Forked 2.2
+# Compilação / Building — Passable Foliage Forked 2.2.1
 
 Requisitos: **JDK 25**, `JAVA_HOME` apontando para esse JDK, **Python 3.10+**
 e internet para baixar o Gradle e as dependências. O Gradle Wrapper verifica o
 SHA-256 da distribuição. Não é necessário instalar Gradle separadamente.
 
-Extraia em uma pasta nova. Não misture com `build`, `bin`, `.gradle` ou JARs antigos.
+Extraia preferencialmente em uma pasta nova. Ao atualizar uma pasta existente,
+substitua todos os arquivos do pacote. A versão 2.2.1 exclui da compilação as
+localizações obsoletas conhecidas de fontes e recursos do layout anterior, sem
+apagá-las. `verifySourceLayout` informa a contagem e reprova outras duplicatas.
+Não reutilize JARs de builds antigos.
 Abra o terminal na pasta que contém `Build.ps1` e `gradlew.bat`.
 
 ## Windows / PowerShell
@@ -52,16 +56,16 @@ Interrupção por Ctrl+C encerra o processo e registra falha; não inicia outro 
 
 | Alvo | Diretório |
 |---|---|
-| Fabric 26.2 | `build/Fabric/26.2/2.2/` |
-| Fabric 26.3 | `build/Fabric/26.3/2.2/` |
-| NeoForge 26.2 | `build/NeoForge/26.2/2.2/` |
-| NeoForge 26.3 beta | `build/NeoForge/26.3/2.2/` |
+| Fabric 26.2 | `build/Fabric/26.2/2.2.1/` |
+| Fabric 26.3 | `build/Fabric/26.3/2.2.1/` |
+| NeoForge 26.2 | `build/NeoForge/26.2/2.2.1/` |
+| NeoForge 26.3 beta | `build/NeoForge/26.3/2.2.1/` |
 
 Dentro de cada diretório ficam o JAR do mod, JAR de fontes, `classes/`, `resources/`,
 `generated/`, `tmp/`, `reports/`, `.gradle/`, `run/`, `build-info.json`,
 `last-build.json` e `logs/<data-hora-UTC-id>/`. Pastas só aparecem quando a tarefa
 correspondente as utiliza. O JAR do mod fica diretamente na pasta da versão,
-por exemplo `PassableFoliageForked-fabric-26.2-2.2.jar`.
+por exemplo `PassableFoliageForked-fabric-26.2-2.2.1.jar`.
 
 `clean` limpa apenas o alvo escolhido e preserva seus logs, cache local e mundos
 em `run/`. Os caches globais de distribuição/dependências do Gradle continuam no
@@ -77,7 +81,8 @@ Nenhum cache, mundo ou binário antigo é parte dos fontes entregues.
 - `build-info.json`: versões de Java, Gradle, Minecraft, mod e dependências do alvo.
 - `reports/profile/`: perfil HTML de tempo das tarefas gerado por `--profile`.
 - Java usa `-Xlint:all -Werror`; Gradle usa `--warning-mode=fail`.
-- O script reprova também linhas de diagnóstico `WARNING`, `WARN` e `warning:`.
+- Os launchers Python, Windows e Unix habilitam acesso nativo para o Gradle no Java 25.
+- O script reprova também linhas de diagnóstico `WARNING`, `WARN`, `[warning]` e `warning:`.
   Não ignora warnings de dependências ou plugins. Uma falha deve ser investigada,
   não contornada desativando essas opções.
 
@@ -88,8 +93,8 @@ Uma validação parcial aprovada não gera nem valida um JAR antigo nessa pasta.
 ## Gradle direto e IDE
 
 ```powershell
-.\gradlew.bat partialCheck -Pmodloader=Fabric -Pminecraft_version=26.2 --project-cache-dir build/Fabric/26.2/2.2/.gradle
-.\gradlew.bat build -Pmodloader=NeoForge -Pminecraft_version=26.2 --project-cache-dir build/NeoForge/26.2/2.2/.gradle
+.\gradlew.bat partialCheck -Pmodloader=Fabric -Pminecraft_version=26.2 --project-cache-dir build/Fabric/26.2/2.2.1/.gradle
+.\gradlew.bat build -Pmodloader=NeoForge -Pminecraft_version=26.2 --project-cache-dir build/NeoForge/26.2/2.2.1/.gradle
 ```
 
 Sem parâmetros, Gradle usa Fabric 26.3. O script `Build.ps1`/`build.py` é a entrada
@@ -115,6 +120,12 @@ As condições dos JSONs Fabric e NeoForge devem permanecer equivalentes; os tes
 verificam isso. Compilação parcial não inicia o jogo e não garante que os Mixins
 se apliquem em runtime. Testar cliente e servidor dedicado, /reload, encantamento,
 playerOnly, headHitter, fluidos, neve, sons e queda continua necessário.
+
+## Correção 2.2.1
+
+Veja [REVISAO_2.2.1.md](REVISAO_2.2.1.md) para as causas dos erros enviados,
+as correções e o escopo exato da validação parcial. A integração de som NeoForge
+usa a API contextual com mundo, posição e entidade; Fabric mantém sua API nativa.
 
 ## English quick start
 

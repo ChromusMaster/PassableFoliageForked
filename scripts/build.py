@@ -14,7 +14,7 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
-WARNING = re.compile(r"(?:\bwarning\s*:|(?:^|\s|\[)WARN(?:\s|\]|:)|^\s*WARNING\b|^\s*[1-9]\d*\s+warnings?\b|Deprecated Gradle features were used)", re.I)
+WARNING = re.compile(r"(?:\bwarning\s*:|(?:^|\s|\[)WARN(?:\s|\]|:)|\[warning\]|^\s*WARNING\b|^\s*[1-9]\d*\s+warnings?\b|Deprecated Gradle features were used)", re.I)
 
 
 def properties(path: Path) -> dict[str, str]:
@@ -46,7 +46,7 @@ def run_target(loader: str, mc: str, version: str, mode: str, clean: bool, beta:
     # Invoke the wrapper JAR directly: identical wrapper/distribution validation on
     # Windows and Linux, no shell parsing and no dependency on executable bits.
     java = str(Path(os.environ['JAVA_HOME']) / 'bin' / ('java.exe' if os.name == 'nt' else 'java')) if os.environ.get('JAVA_HOME') else 'java'
-    command = [java, '-cp', str(ROOT / 'gradle/wrapper/gradle-wrapper.jar'),
+    command = [java, '--enable-native-access=ALL-UNNAMED', '-Dfile.encoding=UTF-8', '-cp', str(ROOT / 'gradle/wrapper/gradle-wrapper.jar'),
                'org.gradle.wrapper.GradleWrapperMain',
                '--project-cache-dir', str(output / '.gradle'),
                '--no-daemon', '--console=plain', '--warning-mode=fail', '--stacktrace', '--info', '--profile',

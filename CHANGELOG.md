@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.2.1
+
+- Corrected duplicate sources and obsolete Fabric resource selection after extracting over the old layout.
+- Added a source layout verification task without deleting legacy user files.
+- Enabled native access in Python, Windows and Unix launchers for Java 25.
+- Replaced NeoForge deprecated sound calls with its contextual sound API.
+- Preserved warning-as-error checks and included JVM bracketed warning diagnostics.
+- Partially compiled changed classes for all four targets; see REVISAO_2.2.1.md for limitations.
+
+## 2.2
+
+- Added segmented Fabric and NeoForge builds, logs, profiles and strict warning gates.
+- Added the NeoForge port and performance/stability fixes described in REVISAO_2.2.md.
+
 ## 2.1
 
 - Ported the project metadata and dependencies to Minecraft Java 26.3.

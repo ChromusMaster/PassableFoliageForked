@@ -16,7 +16,7 @@ class BuildRunnerTests(unittest.TestCase):
         self.assertEqual(len(build.targets('All', 'All', True)), 4)
 
     def test_warning_gate(self):
-        for line in ['A.java:9: warning: unchecked', 'WARNING: native access', '[12:00] [WARN] loader', '2 warnings', 'Deprecated Gradle features were used in this build']:
+        for line in ['A.java:9: warning: unchecked', 'WARNING: native access', '[12:00] [WARN] loader', '[0.01s][warning][cds] runtime diagnostic', '2 warnings', 'Deprecated Gradle features were used in this build']:
             self.assertIsNotNone(build.WARNING.search(line), line)
         for line in ['0 warnings', '--warning-mode=fail', 'BUILD SUCCESSFUL', 'WarningMode.Fail', 'java --warn-on-artifact-manifest-miss']:
             self.assertIsNone(build.WARNING.search(line), line)
@@ -55,6 +55,8 @@ class BuildResultTests(unittest.TestCase):
         passed, report = self.run_fake('java --warn-on-artifact-manifest-miss\nBUILD SUCCESSFUL\n', 0)
         self.assertTrue(passed)
         self.assertEqual(report['artifacts'], [])
+        native = report['command'].index('--enable-native-access=ALL-UNNAMED')
+        self.assertLess(native, report['command'].index('org.gradle.wrapper.GradleWrapperMain'))
 
 if __name__ == '__main__':
     unittest.main()
