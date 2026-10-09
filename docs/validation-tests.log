@@ -1,0 +1,14 @@
+test_partial_success_does_not_claim_jars (test_build_runner.BuildResultTests.test_partial_success_does_not_claim_jars) ... ok
+test_process_error_is_preserved (test_build_runner.BuildResultTests.test_process_error_is_preserved) ... ok
+test_warning_rejects_success_exit (test_build_runner.BuildResultTests.test_warning_rejects_success_exit) ... ok
+test_default_matrix_excludes_beta (test_build_runner.BuildRunnerTests.test_default_matrix_excludes_beta) ... ok
+test_explicit_beta_requires_opt_in (test_build_runner.BuildRunnerTests.test_explicit_beta_requires_opt_in) ... ok
+test_warning_gate (test_build_runner.BuildRunnerTests.test_warning_gate) ... ok
+test_every_mixin_has_source (test_resources.ResourceTests.test_every_mixin_has_source) ... ok
+test_platform_conditions_match (test_resources.ResourceTests.test_platform_conditions_match) ... ok
+test_shared_sources_do_not_import_loader_apis (test_resources.ResourceTests.test_shared_sources_do_not_import_loader_apis) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.026s
+
+OK

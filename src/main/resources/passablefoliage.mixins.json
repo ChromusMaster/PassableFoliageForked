@@ -1,22 +1,22 @@
 {
-	"required": true,
-	"package": "snownee.passablefoliage.mixin",
-	"compatibilityLevel": "JAVA_25",
-	"mixins": [
-		"BlockMixin",
-		"BlockStateCacheMixin",
-		"BlockStateMixin",
-		"FlowingFluidMixin",
-		"LivingEntityMixin",
-		"MultifaceBlockMixin",
-		"fabric.WalkNodeEvaluatorMixin"
-	],
-	"client": [
-		"EntityRendererMixin",
-		"LeavesBlockMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"minVersion": "0.8"
+  "required": true,
+  "package": "snownee.passablefoliage.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "BlockMixin",
+    "BlockStateMixin",
+    "FlowingFluidMixin",
+    "LivingEntityMixin",
+    "MultifaceBlockMixin",
+    "WalkNodeEvaluatorMixin",
+    "ViewBlockingMixin"
+  ],
+  "client": [
+    "EntityRendererMixin",
+    "LeavesBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
 }

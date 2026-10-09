@@ -1,65 +1,153 @@
 plugins {
-	id 'net.fabricmc.fabric-loom' version "${loom_version}"
-	id 'maven-publish'
+    id 'net.fabricmc.fabric-loom' version '1.17.19' apply false
+    id 'net.neoforged.moddev' version '2.0.148' apply false
+    id 'maven-publish'
 }
 
-version = project.mod_version
-group = project.maven_group
-
-base {
-	archivesName = "${project.archives_base_name}${project.mod_version}"
+def loader = providers.gradleProperty('modloader').get()
+def mc = providers.gradleProperty('minecraft_version').get()
+def fabricApi = ['26.2': '0.158.0+26.2', '26.3': '0.161.0+26.3'][mc]
+def neoVersion = ['26.2': '26.2.0.88', '26.3': '26.3.0.58-beta'][mc]
+version = providers.gradleProperty('mod_version').get()
+group = providers.gradleProperty('maven_group').get()
+layout.buildDirectory = layout.projectDirectory.dir("build/${loader}/${mc}/${version}")
+if (loader == 'NeoForge' && mc == '26.3' && !providers.gradleProperty('allow_beta').getOrElse('false').toBoolean()) {
+    throw new GradleException('NeoForge 26.3 is beta. Explicitly add -Pallow_beta=true to test this target.')
 }
+apply plugin: loader == 'Fabric' ? 'net.fabricmc.fabric-loom' : 'net.neoforged.moddev'
+apply plugin: 'java-library'
 
-repositories {
-	// Loom supplies the repositories required by Minecraft, Fabric Loader and Fabric API.
-}
-
-sourceSets {
-	main.resources.srcDirs += "$rootDir/src/generated/resources"
-}
-
+repositories { mavenCentral() }
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    compileOnly 'org.jetbrains:annotations:26.0.2-1'
+    compileOnly 'com.google.errorprone:error_prone_annotations:2.48.0'
+    testImplementation 'org.ow2.asm:asm-tree:9.10.1'
+    testCompileOnly 'org.jetbrains:annotations:26.0.2-1'
+    testCompileOnly 'com.google.errorprone:error_prone_annotations:2.48.0'
 }
 
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
-}
-
-tasks.withType(JavaCompile).configureEach {
-	options.encoding = "UTF-8"
-	options.release = 25
-	options.compilerArgs.addAll(["-Xlint:all", "-Xlint:-processing"])
-}
-
+base { archivesName = "${project.archives_base_name}-${loader.toLowerCase()}-${mc}" }
 java {
-	withSourcesJar()
-	sourceCompatibility = JavaVersion.VERSION_25
-	targetCompatibility = JavaVersion.VERSION_25
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    withSourcesJar()
+}
+sourceSets {
+    main {
+        java.setSrcDirs(['src/main/java', "src/version/${mc}/java", "src/${loader.toLowerCase()}/java", "src/${loader.toLowerCase()}/${mc}/java"])
+        resources.setSrcDirs(['src/main/resources', "src/${loader.toLowerCase()}/resources"])
+    }
+}
+if (loader == 'Fabric') {
+    dependencies {
+        minecraft "com.mojang:minecraft:${mc}"
+        implementation 'net.fabricmc:fabric-loader:0.19.5'
+        implementation "net.fabricmc.fabric-api:fabric-api:${fabricApi}"
+    }
+    loom {
+        runs {
+            configureEach { runDir = "${layout.buildDirectory.get()}/run/${name}" }
+        }
+    }
+} else {
+    neoForge {
+        version = neoVersion
+        runs {
+            client { client() }
+            server { server(); programArgument '--nogui' }
+            configureEach { gameDirectory = layout.buildDirectory.dir("run/${name}").get().asFile }
+        }
+        mods { passablefoliage { sourceSet sourceSets.main } }
+    }
 }
 
-jar {
-	from("LICENSE") {
-		rename { "${it}_${project.archives_base_name}" }
-	}
+def metadata = [version: version.toString(), minecraft_version: mc,
+    fabric_api_min: fabricApi.split('\\+')[0], neo_version: neoVersion,
+    neo_upper: mc == '26.2' ? '26.3' : '26.4']
+tasks.named('processResources', ProcessResources) {
+    inputs.properties(metadata)
+    duplicatesStrategy = DuplicatesStrategy.FAIL
+    from('src/generated/resources') {
+        exclude '.cache/**'
+        if (loader == 'NeoForge') {
+            exclude 'data/passablefoliage/enchantment/leaf_walker.json'
+            exclude 'data/passablefoliage/recipe/leaf_walker.json'
+            exclude 'data/passablefoliage/advancement/recipes/misc/leaf_walker.json'
+        }
+    }
+    exclude 'passablefoliage.kiwi.yaml', '**/*.existing.json'
+    filesMatching(['fabric.mod.json', 'META-INF/neoforge.mods.toml']) { expand(metadata) }
+    filesMatching('pack.mcmeta') {
+        filter { line -> line.replace('MIN_PACK_MAJOR', mc == '26.2' ? '88' : '97')
+            .replace('MIN_PACK_MINOR', mc == '26.2' ? '0' : '1')
+            .replace('MAX_PACK_MAJOR', mc == '26.2' ? '107' : '121')
+            .replace('MAX_PACK_MINOR', mc == '26.2' ? '1' : '0') }
+    }
 }
-
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 25
+    options.compilerArgs.addAll(['-Xlint:all', '-Werror'])
+}
 tasks.withType(AbstractArchiveTask).configureEach {
-	archiveVersion = ""
-	preserveFileTimestamps = false
-	reproducibleFileOrder = true
+    destinationDirectory = layout.buildDirectory
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+tasks.named('jar', Jar) {
+    from('LICENSE') { rename { 'LICENSE_PassableFoliageForked' } }
+    manifest.attributes('Implementation-Version': version, 'Minecraft-Version': mc, 'Mod-Loader': loader)
+}
+// The entire target directory also contains logs and local caches. Keep those
+// while Gradle clean removes only generated compilation outputs and artifacts.
+tasks.named('clean', Delete) {
+    setDelete([])
+    delete(provider {
+        def dir = layout.buildDirectory.get().asFile
+        dir.exists() ? dir.listFiles().findAll { !(it.name in ['logs', '.gradle', 'run']) } : []
+    })
+}
+tasks.register('partialCheck') {
+    group = 'verification'
+    description = 'Compile Java and process resources without packaging or launching Minecraft.'
+    dependsOn 'compileJava', 'processResources'
+}
+tasks.register('buildInfo') {
+    def output = layout.buildDirectory.file('build-info.json')
+    outputs.file(output)
+    inputs.properties(metadata + [loader: loader, java: System.getProperty('java.version'), gradle: gradle.gradleVersion])
+    doLast {
+        output.get().asFile.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(
+            metadata + [loader: loader, java: System.getProperty('java.version'), gradle: gradle.gradleVersion])) + '\n'
+    }
+}
+tasks.named('partialCheck') { dependsOn 'buildInfo' }
+tasks.named('build') { dependsOn 'buildInfo' }
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = "passablefoliageforked-${loader.toLowerCase()}-${mc}"
+            from components.java
+        }
+    }
 }
 
-publishing {
-	publications {
-		create("mavenJava", MavenPublication) {
-			from components.java
-		}
-	}
+tasks.register('regressionTest', JavaExec) {
+    group = 'verification'
+    dependsOn 'testClasses'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'snownee.passablefoliage.SuppressionDepthTest'
 }
+tasks.named('check') { dependsOn 'regressionTest' }
+tasks.named('partialCheck') { dependsOn 'regressionTest' }
+
+tasks.register('mixinContractTest', JavaExec) {
+    group = 'verification'
+    dependsOn 'testClasses'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'snownee.passablefoliage.MixinContractTest'
+}
+tasks.named('check') { dependsOn 'mixinContractTest' }
+tasks.named('partialCheck') { dependsOn 'mixinContractTest' }
+
+// Regression checks are standalone Java programs, not JUnit tests.
+tasks.named('test', Test) { enabled = false }

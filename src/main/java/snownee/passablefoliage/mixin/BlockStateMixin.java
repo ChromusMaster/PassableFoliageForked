@@ -142,12 +142,6 @@ public class BlockStateMixin {
 		}
 	}
 
-	@Inject(at = @At("HEAD"), method = "isViewBlocking", cancellable = true)
-	private void pfoliage_isViewBlocking(BlockGetter level, BlockPos pos, CallbackInfoReturnable<Boolean> ci) {
-		if (PassableFoliageCommonConfig.alwaysNotViewBlocking && PassableFoliage.isPassable(self())) {
-			ci.setReturnValue(false);
-		}
-	}
 
 	@Inject(at = @At("HEAD"), method = "canOcclude", cancellable = true)
 	private void pfoliage_canOcclude(CallbackInfoReturnable<Boolean> cir) {

@@ -39,6 +39,7 @@ public abstract class LivingEntityMixin extends Entity implements PassableFoliag
 	private void pfoliage_baseTick(CallbackInfo ci) {
 		pfoliage$inside = false;
 		pfoliage$isPartiallyInFoliage = PassableFoliageCommonConfig.headHitter &&
+				(!PassableFoliageCommonConfig.playerOnly || (Object) this instanceof net.minecraft.world.entity.player.Player) &&
 				level().getBlockStatesIfLoaded(getBoundingBox()).anyMatch(PassableFoliage::isPassable);
 	}
 

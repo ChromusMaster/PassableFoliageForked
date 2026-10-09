@@ -31,7 +31,8 @@ public final class PassableFoliage {
 		return Identifier.fromNamespaceAndPath(ID, path);
 	}
 
-	private static final ThreadLocal<int[]> SUPPRESS_PASSABLE_CHECK = ThreadLocal.withInitial(() -> new int[1]);
+	private static final snownee.passablefoliage.util.SuppressionDepth SUPPRESS_PASSABLE_CHECK =
+			new snownee.passablefoliage.util.SuppressionDepth();
 	private static boolean err;
 
 	public static void onEntityCollidedWithLeaves(
@@ -41,7 +42,8 @@ public final class PassableFoliage {
 			Entity entity,
 			InsideBlockEffectApplier effectApplier,
 			boolean isPrecise) {
-		if (!(entity instanceof LivingEntity livingEntity)) {
+		if (!(entity instanceof LivingEntity livingEntity) ||
+				PassableFoliageCommonConfig.playerOnly && !(entity instanceof Player)) {
 			return;
 		}
 
@@ -62,7 +64,9 @@ public final class PassableFoliage {
 			}
 		}
 
-		if (!PassableFoliageCommonConfig.soundsPlayerOnly || entity instanceof Player) {
+		if (PassableFoliageCommonConfig.soundVolume > 0 &&
+				(!PassableFoliageCommonConfig.soundsPlayerOnly || entity instanceof Player) &&
+				!((PassableFoliageEntity) livingEntity).pfoliage$isInside()) {
 			if (blockState.is(BlockTags.LEAVES)) {
 				// play a sound when an entity falls into leaves; do this before altering motion
 				if (livingEntity.fallDistance > 3f) {
@@ -87,7 +91,7 @@ public final class PassableFoliage {
 		}
 
 		float h = 1, v = 1;
-		if (!hasLeafWalker(livingEntity)) {
+		if (!((PassableFoliageEntity) livingEntity).pfoliage$isInside() && !hasLeafWalker(livingEntity)) {
 			boolean jumping = livingEntity.isJumping() || livingEntity.getKnownSpeed().y() > 0;
 			if (!jumping && !((PassableFoliageEntity) livingEntity).pfoliage$isInside()) {
 				v = PassableFoliageCommonConfig.speedMultiplierVertical;
@@ -106,7 +110,7 @@ public final class PassableFoliage {
 			livingEntity.fallDistance -= PassableFoliageCommonConfig.fallDamageThreshold;
 			livingEntity.causeFallDamage(
 					PassableFoliageCommonConfig.fallDamageThreshold,
-					1 - PassableFoliageCommonConfig.fallDamageMultiplier,
+					PassableFoliageCommonConfig.fallDamageMultiplier,
 					world.damageSources().fall());
 		}
 
@@ -124,8 +128,8 @@ public final class PassableFoliage {
 	}
 
 	public static boolean isPassable(BlockState state) {
-		return SUPPRESS_PASSABLE_CHECK.get()[0] == 0 &&
-				((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable();
+		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable() &&
+				!SUPPRESS_PASSABLE_CHECK.isSuppressed();
 	}
 
 	public static boolean isPartiallyInFoliage(LivingEntity entity) {
@@ -139,11 +143,10 @@ public final class PassableFoliage {
 	}
 
 	public static void setSuppressPassableCheck(boolean suppressPassableCheck) {
-		int[] depth = SUPPRESS_PASSABLE_CHECK.get();
 		if (suppressPassableCheck) {
-			depth[0]++;
-		} else if (depth[0] > 0 && --depth[0] == 0) {
-			SUPPRESS_PASSABLE_CHECK.remove();
+			SUPPRESS_PASSABLE_CHECK.enter();
+		} else {
+			SUPPRESS_PASSABLE_CHECK.exit();
 		}
 	}
 

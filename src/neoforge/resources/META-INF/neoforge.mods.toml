@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+issueTrackerURL="https://github.com/ChromusMaster/PassableFoliageForked/issues"
+
+[[mods]]
+modId="passablefoliage"
+version="${version}"
+displayName="Passable Foliage Forked"
+authors="Snownee, ChromusMaster"
+description='''Passable foliage with configurable movement, fall damage, sounds and pathfinding.'''
+
+[[mixins]]
+config="passablefoliage.mixins.json"
+
+[[dependencies.passablefoliage]]
+modId="neoforge"
+type="required"
+versionRange="[${neo_version},${neo_upper})"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.passablefoliage]]
+modId="minecraft"
+type="required"
+versionRange="[${minecraft_version}]"
+ordering="NONE"
+side="BOTH"

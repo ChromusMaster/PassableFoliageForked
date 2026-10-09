@@ -13,7 +13,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.Strictness;
 
-import net.fabricmc.loader.api.FabricLoader;
 
 public final class PassableFoliageCommonConfig {
 	private static final Gson GSON = new GsonBuilder()
@@ -41,8 +40,7 @@ public final class PassableFoliageCommonConfig {
 	private PassableFoliageCommonConfig() {
 	}
 
-	public static synchronized void load() {
-		Path configDirectory = FabricLoader.getInstance().getConfigDir();
+	public static synchronized void load(Path configDirectory) {
 		Path configPath = configDirectory.resolve(CONFIG_FILE);
 		Path legacyPath = configDirectory.resolve(LEGACY_CONFIG_FILE);
 		ConfigValues values = new ConfigValues();
@@ -142,7 +140,7 @@ public final class PassableFoliageCommonConfig {
 				case "modules.enchantment" -> setBoolean(value, enabled -> values.leafWalkerEnabled = enabled);
 				default -> false;
 			};
-		} catch (NumberFormatException exception) {
+		} catch (IllegalArgumentException exception) {
 			PassableFoliage.LOGGER.warn("Ignoring invalid legacy configuration value for {}", key);
 			return false;
 		}

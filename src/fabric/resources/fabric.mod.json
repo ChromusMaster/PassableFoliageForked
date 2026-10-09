@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "passablefoliage",
+  "version": "${version}",
+  "name": "Passable Foliage Forked",
+  "description": "An independently maintained fork that makes leaves and configured foliage passable while preserving configurable movement, fall-damage, sound and pathfinding behavior.",
+  "authors": [
+    "Snownee"
+  ],
+  "contributors": [
+    "ChromusMaster"
+  ],
+  "contact": {
+    "homepage": "https://github.com/ChromusMaster/PassableFoliageForked",
+    "sources": "https://github.com/ChromusMaster/PassableFoliageForked",
+    "issues": "https://github.com/ChromusMaster/PassableFoliageForked/issues"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "mixins": [
+    "passablefoliage.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "=${minecraft_version}",
+    "java": ">=25",
+    "fabric-api": ">=${fabric_api_min}"
+  },
+  "entrypoints": {
+    "main": [
+      "snownee.passablefoliage.util.CommonProxy"
+    ],
+    "fabric-datagen": [
+      "snownee.passablefoliage.datagen.PassableFoliageDataGen"
+    ]
+  }
+}

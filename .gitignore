@@ -25,3 +25,6 @@ run
 /.factorypath
 /logs
 /.apt_generated_tests/
+
+__pycache__/
+*.pyc

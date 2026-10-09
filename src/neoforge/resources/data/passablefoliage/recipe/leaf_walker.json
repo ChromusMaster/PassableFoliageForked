@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:enchanted_book",
+    "#minecraft:leaves"
+  ],
+  "result": {
+    "components": {
+      "minecraft:stored_enchantments": {
+        "passablefoliage:leaf_walker": 1
+      }
+    },
+    "id": "minecraft:enchanted_book"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:and",
+      "values": [
+        {
+          "type": "passablefoliage:leaf_walker_enabled"
+        },
+        {
+          "type": "neoforge:not",
+          "value": {
+            "type": "passablefoliage:always_leaf_walking"
+          }
+        }
+      ]
+    }
+  ]
+}

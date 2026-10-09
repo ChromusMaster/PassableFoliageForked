@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "passablefoliage:leaf_walker"
+        "recipes": "passablefoliage:leaf_walker"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

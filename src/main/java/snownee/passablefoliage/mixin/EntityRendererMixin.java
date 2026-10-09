@@ -15,7 +15,19 @@ public class EntityRendererMixin<T extends Entity, S extends EntityRenderState> 
 
 	@Inject(method = "finalizeRenderState", at = @At("RETURN"))
 	private void pfoliage_hideNameTag(T entity, S state, CallbackInfo ci) {
-		if (entity.level().getBlockStatesIfLoaded(entity.getBoundingBox()).allMatch(PassableFoliage::isPassable)) {
+		if (state.nameTag == null) {
+			return;
+		}
+		try (var states = entity.level().getBlockStatesIfLoaded(entity.getBoundingBox())) {
+			var iterator = states.iterator();
+			if (!iterator.hasNext()) {
+				return;
+			}
+			do {
+				if (!PassableFoliage.isPassable(iterator.next())) {
+					return;
+				}
+			} while (iterator.hasNext());
 			state.nameTag = null;
 		}
 	}

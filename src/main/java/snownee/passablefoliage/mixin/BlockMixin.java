@@ -10,7 +10,7 @@ import snownee.passablefoliage.duck.PassableFoliageBlock;
 public class BlockMixin implements PassableFoliageBlock {
 
 	@Unique
-	private boolean pfoliage$passable;
+	private volatile boolean pfoliage$passable;
 
 	@Override
 	public void pfoliage$setPassable(boolean passable) {

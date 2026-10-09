@@ -1,7 +1,11 @@
+> Build 2.2: Fabric 26.2/26.3 and NeoForge 26.2 stable; NeoForge 26.3 beta is opt-in.
+> See [BUILDING_WINDOWS.md](BUILDING_WINDOWS.md) for the build matrix, strict warnings and output layout.
+> Validation and changes: [REVISAO_2.2.md](REVISAO_2.2.md).
+
 # Passable Foliage Forked
 
-Mod version: **2.1**  
-Minecraft Java: **26.3**
+Mod version: **2.2**  
+Minecraft Java: **26.2 / 26.3**
 
 ## About
 
@@ -15,16 +19,14 @@ This fork is independently maintained and is not affiliated with or endorsed by 
 
 | Component | Version |
 | --- | --- |
-| Minecraft Java | 26.3 |
-| Java | 25 or newer |
+| Minecraft Java | 26.2 or 26.3 (separate builds) |
+| Java | JDK 25 for building; Java 25 for running |
 | Fabric Loader | 0.19.5 or newer |
-| Fabric API | 0.161.0 or newer for Minecraft 26.3 |
-| Quilt Loader | Supported through Fabric mod compatibility |
+| Fabric API | 0.158.0+26.2 / 0.161.0+26.3 |
+| NeoForge | 26.2.0.88 stable / 26.3.0.58-beta experimental |
 | Environment | Client and server |
 
-The same JAR can be used with Fabric and Quilt. Fabric API is required in both cases.
-
-NeoForge is not included in this source tree. The original project supplied for this update was the Fabric/Quilt branch.
+Install the JAR matching both Minecraft and your modloader. Fabric API is required only for Fabric. Quilt has not been validated in this revision. Client and server should use matching configuration values.
 
 ## Features
 
@@ -37,6 +39,15 @@ NeoForge is not included in this source tree. The original project supplied for 
 - Includes the Leaf Walker enchantment for walking on top of foliage.
 - Includes the `headHitter` option, which preserves collision when approaching foliage from below.
 - Hides an entity's name tag only while the entity is fully inside foliage.
+
+## Changes in 2.2
+
+- Separate builds and project caches by loader, Minecraft version and mod version.
+- NeoForge entrypoint, registry lifecycle and native resource conditions.
+- Strict warning gates, build logs, timing profiles and artifact hashes.
+- Correct playerOnly effects/pathfinding and the inverted fall damage multiplier.
+- Reuse collision suppression counters and skip unnecessary name-tag queries.
+- Keep version-specific recipe datagen APIs isolated.
 
 ## Changes in 2.1
 
@@ -96,23 +107,14 @@ Detailed instructions for Windows 10 and Visual Studio Code are available in [BU
 From PowerShell in the project directory:
 
 ```powershell
-java -version
-.\gradlew.bat clean build
+.\Build.ps1 -Mode partial
+.\Build.ps1 -Clean
 ```
 
-The main JAR is written to:
-
-```text
-build\libs\PassableFoliageForked2.1.jar
-```
-
-Development tasks:
-
-```powershell
-.\gradlew.bat runClient
-.\gradlew.bat runServer
-.\gradlew.bat runDatagen
-```
+Artifacts: `build/<Modloader>/<MinecraftVersion>/<ModVersion>/`.
+The default matrix builds Fabric 26.2, Fabric 26.3 and NeoForge 26.2.
+NeoForge 26.3 requires explicit beta opt-in. See the build guide and revision
+report for validation limits and runtime checks.
 
 ## License
 
