@@ -1,8 +1,3 @@
-> Build 2.2.2: Fabric 26.2/26.3 and NeoForge 26.2 stable; NeoForge 26.3 beta is opt-in.
-> See [BUILDING_WINDOWS.md](BUILDING_WINDOWS.md) for the build matrix, strict warnings and output layout.
-> Latest build fixes and validation: [REVISAO_2.2.2.md](REVISAO_2.2.2.md).
-> Initial port review: [REVISAO_2.2.md](REVISAO_2.2.md).
-
 # Passable Foliage Forked
 
 Mod version: **2.2.2**
