@@ -25,6 +25,10 @@ run
 /.factorypath
 /logs
 /.apt_generated_tests/
+REVISAO_2.2.1.md
+REVISAO_2.2.2.md
+REVISAO_2.2.md
+BUILDING_WINDOWS.md
 
 __pycache__/
 *.pyc
