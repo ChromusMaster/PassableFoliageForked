@@ -1,0 +1,32 @@
+{
+  "loader": "Fabric",
+  "minecraft": "26.2",
+  "mod_version": "2.2.1",
+  "mode": "partial",
+  "started_utc": "20261009T202447.120887Z-16110fe1",
+  "command": [
+    "C:\\Program Files\\Microsoft\\jdk-25.0.4.101-hotspot\\bin\\java.exe",
+    "--enable-native-access=ALL-UNNAMED",
+    "-Dfile.encoding=UTF-8",
+    "-cp",
+    "D:\\Repository\\PassableFoliageForked\\gradle\\wrapper\\gradle-wrapper.jar",
+    "org.gradle.wrapper.GradleWrapperMain",
+    "--project-cache-dir",
+    "D:\\Repository\\PassableFoliageForked\\build\\Fabric\\26.2\\2.2.1\\.gradle",
+    "--no-daemon",
+    "--console=plain",
+    "--warning-mode=fail",
+    "--stacktrace",
+    "--info",
+    "--profile",
+    "-Pmodloader=Fabric",
+    "-Pminecraft_version=26.2",
+    "-Pmod_version=2.2.1",
+    "partialCheck"
+  ],
+  "warnings": [],
+  "status": "passed",
+  "exit_code": 0,
+  "elapsed_seconds": 20.547,
+  "artifacts": []
+}

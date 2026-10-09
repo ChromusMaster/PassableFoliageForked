@@ -1,0 +1,29 @@
+dependencies {
+    testImplementation 'org.ow2.asm:asm-tree:9.10.1'
+    testCompileOnly 'org.jetbrains:annotations:26.0.2-1'
+    testCompileOnly 'com.google.errorprone:error_prone_annotations:2.48.0'
+    testImplementation 'com.google.code.gson:gson:2.14.0'
+}
+
+tasks.register('regressionTest', JavaExec) {
+    group = 'verification'
+    dependsOn 'testClasses'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'snownee.passablefoliage.SuppressionDepthTest'
+}
+tasks.named('check') { dependsOn 'regressionTest' }
+tasks.named('partialCheck') { dependsOn 'regressionTest' }
+
+tasks.register('mixinContractTest', JavaExec) {
+    group = 'verification'
+    dependsOn 'testClasses'
+    // Inspect the actual main compilation artifacts, including patched Minecraft.
+    classpath = sourceSets.test.runtimeClasspath + sourceSets.main.compileClasspath
+    workingDir = layout.projectDirectory.asFile
+    mainClass = 'snownee.passablefoliage.MixinContractTest'
+}
+tasks.named('check') { dependsOn 'mixinContractTest' }
+tasks.named('partialCheck') { dependsOn 'mixinContractTest' }
+
+// Regression checks are standalone Java programs, not JUnit tests.
+tasks.named('test', Test) { enabled = false }

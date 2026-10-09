@@ -1,4 +1,4 @@
-# Compilação / Building — Passable Foliage Forked 2.2.1
+# Compilação / Building — Passable Foliage Forked 2.2.2
 
 Requisitos: **JDK 25**, `JAVA_HOME` apontando para esse JDK, **Python 3.10+**
 e internet para baixar o Gradle e as dependências. O Gradle Wrapper verifica o
@@ -56,16 +56,16 @@ Interrupção por Ctrl+C encerra o processo e registra falha; não inicia outro 
 
 | Alvo | Diretório |
 |---|---|
-| Fabric 26.2 | `build/Fabric/26.2/2.2.1/` |
-| Fabric 26.3 | `build/Fabric/26.3/2.2.1/` |
-| NeoForge 26.2 | `build/NeoForge/26.2/2.2.1/` |
-| NeoForge 26.3 beta | `build/NeoForge/26.3/2.2.1/` |
+| Fabric 26.2 | `build/Fabric/26.2/2.2.2/` |
+| Fabric 26.3 | `build/Fabric/26.3/2.2.2/` |
+| NeoForge 26.2 | `build/NeoForge/26.2/2.2.2/` |
+| NeoForge 26.3 beta | `build/NeoForge/26.3/2.2.2/` |
 
 Dentro de cada diretório ficam o JAR do mod, JAR de fontes, `classes/`, `resources/`,
 `generated/`, `tmp/`, `reports/`, `.gradle/`, `run/`, `build-info.json`,
 `last-build.json` e `logs/<data-hora-UTC-id>/`. Pastas só aparecem quando a tarefa
 correspondente as utiliza. O JAR do mod fica diretamente na pasta da versão,
-por exemplo `PassableFoliageForked-fabric-26.2-2.2.1.jar`.
+por exemplo `PassableFoliageForked-fabric-26.2-2.2.2.jar`.
 
 `clean` limpa apenas o alvo escolhido e preserva seus logs, cache local e mundos
 em `run/`. Os caches globais de distribuição/dependências do Gradle continuam no
@@ -93,8 +93,8 @@ Uma validação parcial aprovada não gera nem valida um JAR antigo nessa pasta.
 ## Gradle direto e IDE
 
 ```powershell
-.\gradlew.bat partialCheck -Pmodloader=Fabric -Pminecraft_version=26.2 --project-cache-dir build/Fabric/26.2/2.2.1/.gradle
-.\gradlew.bat build -Pmodloader=NeoForge -Pminecraft_version=26.2 --project-cache-dir build/NeoForge/26.2/2.2.1/.gradle
+.\gradlew.bat partialCheck -Pmodloader=Fabric -Pminecraft_version=26.2 --project-cache-dir build/Fabric/26.2/2.2.2/.gradle
+.\gradlew.bat build -Pmodloader=NeoForge -Pminecraft_version=26.2 --project-cache-dir build/NeoForge/26.2/2.2.2/.gradle
 ```
 
 Sem parâmetros, Gradle usa Fabric 26.3. O script `Build.ps1`/`build.py` é a entrada
@@ -121,9 +121,9 @@ verificam isso. Compilação parcial não inicia o jogo e não garante que os Mi
 se apliquem em runtime. Testar cliente e servidor dedicado, /reload, encantamento,
 playerOnly, headHitter, fluidos, neve, sons e queda continua necessário.
 
-## Correção 2.2.1
+## Correção 2.2.2
 
-Veja [REVISAO_2.2.1.md](REVISAO_2.2.1.md) para as causas dos erros enviados,
+Veja [REVISAO_2.2.2.md](REVISAO_2.2.2.md) para as causas dos erros enviados,
 as correções e o escopo exato da validação parcial. A integração de som NeoForge
 usa a API contextual com mundo, posição e entidade; Fabric mantém sua API nativa.
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.2
+
+- Declared Gson 2.14.0 explicitly for test compilation/runtime, fixing NeoForge compileTestJava.
+- Included main compilation artifacts in the ASM contract test classpath.
+- Consolidated verification setup and fixed its working directory.
+- Preserved all strict warning checks; no gameplay changes.
+
 ## 2.2.1
 
 - Corrected duplicate sources and obsolete Fabric resource selection after extracting over the old layout.

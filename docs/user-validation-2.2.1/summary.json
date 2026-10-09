@@ -1,0 +1,35 @@
+[
+  {
+    "loader": "Fabric",
+    "minecraft": "26.2",
+    "mode": "partial",
+    "status": "passed",
+    "exit_code": 0,
+    "warnings": [],
+    "elapsed_seconds": 20.547
+  },
+  {
+    "loader": "Fabric",
+    "minecraft": "26.3",
+    "mode": "partial",
+    "status": "passed",
+    "exit_code": 0,
+    "warnings": [],
+    "elapsed_seconds": 17.234
+  },
+  {
+    "loader": "NeoForge",
+    "minecraft": "26.2",
+    "mode": "partial",
+    "status": "failed",
+    "exit_code": 1,
+    "warnings": [],
+    "elapsed_seconds": 15.422
+  },
+  {
+    "loader": "NeoForge",
+    "minecraft": "26.3",
+    "status": "not_run_in_submitted_logs",
+    "reason": "ZIP contains previous isolated validation only"
+  }
+]

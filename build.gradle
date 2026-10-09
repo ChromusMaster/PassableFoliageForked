@@ -21,9 +21,6 @@ repositories { mavenCentral() }
 dependencies {
     compileOnly 'org.jetbrains:annotations:26.0.2-1'
     compileOnly 'com.google.errorprone:error_prone_annotations:2.48.0'
-    testImplementation 'org.ow2.asm:asm-tree:9.10.1'
-    testCompileOnly 'org.jetbrains:annotations:26.0.2-1'
-    testCompileOnly 'com.google.errorprone:error_prone_annotations:2.48.0'
 }
 
 base { archivesName = "${project.archives_base_name}-${loader.toLowerCase()}-${mc}" }
@@ -126,23 +123,4 @@ publishing {
     }
 }
 
-tasks.register('regressionTest', JavaExec) {
-    group = 'verification'
-    dependsOn 'testClasses'
-    classpath = sourceSets.test.runtimeClasspath
-    mainClass = 'snownee.passablefoliage.SuppressionDepthTest'
-}
-tasks.named('check') { dependsOn 'regressionTest' }
-tasks.named('partialCheck') { dependsOn 'regressionTest' }
-
-tasks.register('mixinContractTest', JavaExec) {
-    group = 'verification'
-    dependsOn 'testClasses'
-    classpath = sourceSets.test.runtimeClasspath
-    mainClass = 'snownee.passablefoliage.MixinContractTest'
-}
-tasks.named('check') { dependsOn 'mixinContractTest' }
-tasks.named('partialCheck') { dependsOn 'mixinContractTest' }
-
-// Regression checks are standalone Java programs, not JUnit tests.
-tasks.named('test', Test) { enabled = false }
+apply from: 'gradle/verification.gradle'

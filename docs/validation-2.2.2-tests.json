@@ -1,0 +1,46 @@
+[
+  {
+    "loader": "Fabric",
+    "minecraft": "26.2",
+    "mod_version": "2.2.2",
+    "scope": "Actual verification.gradle applied in an isolated Gradle Java project, with vanilla Minecraft and previously compiled main classes. No loader transformation or game execution.",
+    "exit_code": 0,
+    "status": "passed",
+    "warnings": 0,
+    "mixin_signatures_checked": 16,
+    "suppression_regression": "passed"
+  },
+  {
+    "loader": "Fabric",
+    "minecraft": "26.3",
+    "mod_version": "2.2.2",
+    "scope": "Actual verification.gradle applied in an isolated Gradle Java project, with vanilla Minecraft and previously compiled main classes. No loader transformation or game execution.",
+    "exit_code": 0,
+    "status": "passed",
+    "warnings": 0,
+    "mixin_signatures_checked": 16,
+    "suppression_regression": "passed"
+  },
+  {
+    "loader": "NeoForge",
+    "minecraft": "26.2",
+    "mod_version": "2.2.2",
+    "scope": "Actual verification.gradle applied in an isolated Gradle Java project, with vanilla Minecraft and previously compiled main classes. No loader transformation or game execution.",
+    "exit_code": 0,
+    "status": "passed",
+    "warnings": 0,
+    "mixin_signatures_checked": 16,
+    "suppression_regression": "passed"
+  },
+  {
+    "loader": "NeoForge",
+    "minecraft": "26.3",
+    "mod_version": "2.2.2",
+    "scope": "Actual verification.gradle applied in an isolated Gradle Java project, with vanilla Minecraft and previously compiled main classes. No loader transformation or game execution.",
+    "exit_code": 0,
+    "status": "passed",
+    "warnings": 0,
+    "mixin_signatures_checked": 16,
+    "suppression_regression": "passed"
+  }
+]

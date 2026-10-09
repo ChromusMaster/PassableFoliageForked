@@ -10,7 +10,7 @@ rootProject.name = 'PassableFoliageForked'
 // Validate selectors; build.py sets --project-cache-dir before Gradle starts.
 def loader = providers.gradleProperty('modloader').getOrElse('Fabric')
 def mc = providers.gradleProperty('minecraft_version').getOrElse('26.3')
-def mod = providers.gradleProperty('mod_version').getOrElse('2.2.1')
+def mod = providers.gradleProperty('mod_version').getOrElse('2.2.2')
 if (!(loader in ['Fabric', 'NeoForge']) || !(mc in ['26.2', '26.3']) || !(mod ==~ /[0-9A-Za-z][0-9A-Za-z.+_-]*/)) {
     throw new GradleException('Invalid target. Use Fabric or NeoForge, Minecraft 26.2 or 26.3 and a safe mod version.')
 }

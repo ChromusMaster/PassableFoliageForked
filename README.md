@@ -1,11 +1,11 @@
-> Build 2.2.1: Fabric 26.2/26.3 and NeoForge 26.2 stable; NeoForge 26.3 beta is opt-in.
+> Build 2.2.2: Fabric 26.2/26.3 and NeoForge 26.2 stable; NeoForge 26.3 beta is opt-in.
 > See [BUILDING_WINDOWS.md](BUILDING_WINDOWS.md) for the build matrix, strict warnings and output layout.
-> Latest build fixes and validation: [REVISAO_2.2.1.md](REVISAO_2.2.1.md).
+> Latest build fixes and validation: [REVISAO_2.2.2.md](REVISAO_2.2.2.md).
 > Initial port review: [REVISAO_2.2.md](REVISAO_2.2.md).
 
 # Passable Foliage Forked
 
-Mod version: **2.2.1**
+Mod version: **2.2.2**
 
 Minecraft Java: **26.2 / 26.3**
 
@@ -41,6 +41,12 @@ Install the JAR matching both Minecraft and your modloader. Fabric API is requir
 - Includes the Leaf Walker enchantment for walking on top of foliage.
 - Includes the `headHitter` option, which preserves collision when approaching foliage from below.
 - Hides an entity's name tag only while the entity is fully inside foliage.
+
+## Changes in 2.2.2
+
+- Declare Gson explicitly for test compilation and execution on every loader.
+- Include main compilation artifacts in the bytecode contract test classpath.
+- Consolidate verification dependencies/tasks in `gradle/verification.gradle`.
 
 ## Changes in 2.2.1
 
