@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.3
+
+- Fixed the Leaf Walker recipe unlock advancement on Minecraft 26.2.
+- Generate version-specific advancement criteria for Fabric and NeoForge.
+- Preserve 26.3 support and recipe rewards while validating processed advancements before packaging.
+
 ## 2.2.2
 
 - Declared Gson 2.14.0 explicitly for test compilation/runtime, fixing NeoForge compileTestJava.

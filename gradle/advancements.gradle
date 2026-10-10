@@ -1,0 +1,77 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+
+def advancementPath = 'data/passablefoliage/advancement/recipes/misc/leaf_walker.json'
+def loader = providers.gradleProperty('modloader').get()
+def minecraft = providers.gradleProperty('minecraft_version').get()
+def unlockField = ['26.2': 'recipe', '26.3': 'recipes'][minecraft]
+if (unlockField == null) {
+    throw new GradleException("Unsupported advancement schema for Minecraft ${minecraft}")
+}
+def source = layout.projectDirectory.file(
+    (loader == 'Fabric' ? 'src/generated/resources/' : 'src/neoforge/resources/') + advancementPath)
+def generated = layout.buildDirectory.dir('generated/advancements')
+
+def prepare = tasks.register('prepareAdvancements') {
+    inputs.file(source)
+    inputs.property('minecraftVersion', minecraft)
+    outputs.dir(generated)
+    doLast {
+        def data = new JsonSlurper().parse(source.asFile, 'UTF-8')
+        int converted = 0
+        data.criteria.values().each { criterion ->
+            if (criterion.trigger == 'minecraft:recipe_unlocked') {
+                def conditions = criterion.conditions
+                def keys = ['recipe', 'recipes'].findAll { conditions.containsKey(it) }
+                if (keys.size() != 1) {
+                    throw new GradleException('Recipe unlock criterion must contain exactly one recipe reference.')
+                }
+                def reference = conditions.remove(keys.first())
+                if (!(reference instanceof String) || reference != 'passablefoliage:leaf_walker') {
+                    throw new GradleException("Unexpected Leaf Walker recipe reference: ${reference}")
+                }
+                conditions[unlockField] = reference
+                converted++
+            }
+        }
+        if (converted != 1) { throw new GradleException('Expected one Leaf Walker recipe unlock criterion.') }
+        def output = generated.get().file(advancementPath).asFile
+        output.parentFile.mkdirs()
+        output.setText(JsonOutput.prettyPrint(JsonOutput.toJson(data)) + '\n', 'UTF-8')
+        logger.lifecycle('Leaf Walker advancement: Minecraft {} uses conditions.{}.', minecraft, unlockField)
+    }
+}
+
+// Exclude the original NeoForge resource; the generated Fabric copy is excluded
+// in processResources' own source spec. Include only the prepared target format.
+sourceSets.main.resources.exclude(advancementPath)
+tasks.named('processResources', ProcessResources) { from(prepare) }
+
+def processed = layout.buildDirectory.file('resources/main/' + advancementPath)
+def verify = tasks.register('verifyAdvancementResources') {
+    group = 'verification'
+    description = 'Validate the processed Leaf Walker advancement for the selected Minecraft version.'
+    dependsOn 'processResources'
+    inputs.file(processed)
+    inputs.property('minecraftVersion', minecraft)
+    doLast {
+        def data = new JsonSlurper().parse(processed.get().asFile, 'UTF-8')
+        def criterion = data.criteria.has_the_recipe
+        if (criterion.trigger != 'minecraft:recipe_unlocked' ||
+            criterion.conditions.keySet() != [unlockField].toSet() ||
+            criterion.conditions[unlockField] != 'passablefoliage:leaf_walker') {
+            throw new GradleException("Invalid recipe unlock criterion for Minecraft ${minecraft}")
+        }
+        if (!data.requirements || data.requirements.any { !it } ||
+            data.requirements.flatten().toSet() != data.criteria.keySet()) {
+            throw new GradleException('Advancement requirements must match declared criteria.')
+        }
+        if (data.rewards.recipes != ['passablefoliage:leaf_walker']) {
+            throw new GradleException('Leaf Walker recipe reward was changed or lost.')
+        }
+        logger.lifecycle('Leaf Walker advancement schema and requirements: passed for Minecraft {}.', minecraft)
+    }
+}
+tasks.named('check') { dependsOn verify }
+tasks.named('partialCheck') { dependsOn verify }
+tasks.named('jar') { dependsOn verify }

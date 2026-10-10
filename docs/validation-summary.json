@@ -1,97 +1,72 @@
 {
-  "date": "2026-10-09",
-  "mod_version": "2.2.2",
+  "date_utc": "2026-10-10",
+  "mod_version": "2.2.3",
   "python_tests": {
-    "count": 9,
-    "exit_code": 0
+    "count": 10,
+    "status": "passed",
+    "includes_gradle_resource_integration": true
   },
-  "isolated_gradle_test_checks": [
+  "gradle": "9.7.0",
+  "java": "25.0.4.1",
+  "resource_targets": [
     {
       "loader": "Fabric",
       "minecraft": "26.2",
-      "mod_version": "2.2.2",
-      "scope": "Actual verification.gradle applied in an isolated Gradle Java project, with vanilla Minecraft and previously compiled main classes. No loader transformation or game execution.",
-      "exit_code": 0,
+      "mod_version": "2.2.3",
+      "scope": "Resource processing and resource-only JAR integration; no loader plugins or game runtime",
       "status": "passed",
       "warnings": 0,
-      "mixin_signatures_checked": 16,
-      "suppression_regression": "passed"
+      "official_vanilla_unlock_keys": [
+        "recipe"
+      ],
+      "successful_runs": 1,
+      "json_matches_expected": true,
+      "duplicate_advancements": false
     },
     {
       "loader": "Fabric",
       "minecraft": "26.3",
-      "mod_version": "2.2.2",
-      "scope": "Actual verification.gradle applied in an isolated Gradle Java project, with vanilla Minecraft and previously compiled main classes. No loader transformation or game execution.",
-      "exit_code": 0,
+      "mod_version": "2.2.3",
+      "scope": "Resource processing and resource-only JAR integration; no loader plugins or game runtime",
       "status": "passed",
       "warnings": 0,
-      "mixin_signatures_checked": 16,
-      "suppression_regression": "passed"
+      "official_vanilla_unlock_keys": [
+        "recipes"
+      ],
+      "successful_runs": 2,
+      "json_matches_expected": true,
+      "duplicate_advancements": false
     },
     {
       "loader": "NeoForge",
       "minecraft": "26.2",
-      "mod_version": "2.2.2",
-      "scope": "Actual verification.gradle applied in an isolated Gradle Java project, with vanilla Minecraft and previously compiled main classes. No loader transformation or game execution.",
-      "exit_code": 0,
+      "mod_version": "2.2.3",
+      "scope": "Resource processing and resource-only JAR integration; no loader plugins or game runtime",
       "status": "passed",
       "warnings": 0,
-      "mixin_signatures_checked": 16,
-      "suppression_regression": "passed"
+      "official_vanilla_unlock_keys": [
+        "recipe"
+      ],
+      "successful_runs": 1,
+      "json_matches_expected": true,
+      "duplicate_advancements": false
     },
     {
       "loader": "NeoForge",
       "minecraft": "26.3",
-      "mod_version": "2.2.2",
-      "scope": "Actual verification.gradle applied in an isolated Gradle Java project, with vanilla Minecraft and previously compiled main classes. No loader transformation or game execution.",
-      "exit_code": 0,
+      "mod_version": "2.2.3",
+      "scope": "Resource processing and resource-only JAR integration; no loader plugins or game runtime",
       "status": "passed",
       "warnings": 0,
-      "mixin_signatures_checked": 16,
-      "suppression_regression": "passed"
+      "official_vanilla_unlock_keys": [
+        "recipes"
+      ],
+      "successful_runs": 2,
+      "json_matches_expected": true,
+      "duplicate_advancements": false
     }
   ],
-  "negative_no_gson": {
-    "scope": "Negative control: remove Gson from testCompileClasspath; expect original compileTestJava error",
-    "expected_failure_detected": true,
-    "gradle_exit_code": 1,
-    "status": "passed"
-  },
-  "user_results_previous_revision": [
-    {
-      "loader": "Fabric",
-      "minecraft": "26.2",
-      "mode": "partial",
-      "status": "passed",
-      "exit_code": 0,
-      "warnings": [],
-      "elapsed_seconds": 20.547
-    },
-    {
-      "loader": "Fabric",
-      "minecraft": "26.3",
-      "mode": "partial",
-      "status": "passed",
-      "exit_code": 0,
-      "warnings": [],
-      "elapsed_seconds": 17.234
-    },
-    {
-      "loader": "NeoForge",
-      "minecraft": "26.2",
-      "mode": "partial",
-      "status": "failed",
-      "exit_code": 1,
-      "warnings": [],
-      "elapsed_seconds": 15.422
-    },
-    {
-      "loader": "NeoForge",
-      "minecraft": "26.3",
-      "status": "not_run_in_submitted_logs",
-      "reason": "ZIP contains previous isolated validation only"
-    }
-  ],
-  "full_gradle_build_validated": false,
+  "negative_control_wrong_schema": "rejected as expected",
+  "full_mod_build_validated": false,
   "game_runtime_tested": false
 }

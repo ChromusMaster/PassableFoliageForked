@@ -27,8 +27,9 @@ run
 /.apt_generated_tests/
 REVISAO_2.2.1.md
 REVISAO_2.2.2.md
+REVISAO_2.2.3.md
 REVISAO_2.2.md
 BUILDING_WINDOWS.md
-
+*.ps1
 __pycache__/
 *.pyc

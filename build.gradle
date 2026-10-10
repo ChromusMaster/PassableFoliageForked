@@ -60,10 +60,10 @@ tasks.named('processResources', ProcessResources) {
     duplicatesStrategy = DuplicatesStrategy.FAIL
     from('src/generated/resources') {
         exclude '.cache/**'
+        exclude 'data/passablefoliage/advancement/recipes/misc/leaf_walker.json'
         if (loader == 'NeoForge') {
             exclude 'data/passablefoliage/enchantment/leaf_walker.json'
             exclude 'data/passablefoliage/recipe/leaf_walker.json'
-            exclude 'data/passablefoliage/advancement/recipes/misc/leaf_walker.json'
         }
     }
     exclude 'passablefoliage.kiwi.yaml', '**/*.existing.json'
@@ -124,3 +124,4 @@ publishing {
 }
 
 apply from: 'gradle/verification.gradle'
+apply from: 'gradle/advancements.gradle'
